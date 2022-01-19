@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Plotly.js -->
+         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+      </head>
+      
+      <body>
+        <div id="myDiv" style="width: 480px; height: 400px;">
+            <br>
+        <p>Filter the y array to over 10</p> 
+        <script>
+
+ var xArray = [50,60,70,80,90,100,110,120,130,140,150];
+ var yArray = [7,8,8,9,9,9,10,11,14,14,15];
+
+
+ let dropdownvalue = 9
+ let xlistz = []
+ let ylistz = []
+ for(let i = 0; i < yArray.length;i++){
+    console.log("yvalue is", yArray[i])
+    console.log("xvalue is", xArray[i])
+    if(yArray[i] > dropdownvalue){
+        ylistz.push(yArray[i]);
+        xlistz.push(yArray[i]);
+
+    }else{
+        continue; 
+    }
+ }
+ console.log(xlistz)
+ console.log(ylistz)
+
+ 
+// Define Data
+var data = [{
+  x: xArray,
+  y: yArray,
+  mode:"markers",
+  type:"scatter",
+  transforms: [{
+    type: 'filter',
+    target: 'y',
+    operation: '>',
+    value: 9
+  }]
+}];
+
+// Define Layout
+var layout = {
+  xaxis: {range: [40, 160], title: "Square Meters"},
+  yaxis: {range: [5, 16], title: "Price in Millions"},
+  title: "House Prices vs. Size"
+};
+
+Plotly.newPlot("myDiv", data, layout);
+
+        </script>
+      </body>
+</html>
+
+

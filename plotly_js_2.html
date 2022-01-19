@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Plotly.js -->
+         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      </head>
+      
+      <body>
+        <div id="myDiv" style="width: 480px; height: 400px;">
+            <br>
+        <p>Select value you want y axis to be greater than.</p> 
+            <br>
+        <div class="drop-down-wrapper">
+            <select id="choice">
+                <option value="">All Order</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                </select>
+            <h2>Selected Nothing</h2>
+        </div>
+        <script>
+/// this is the default view!!!!!!!!!!!!!!!!!!!!!
+var xArray = [50,60,70,80,90,100,110,120,130,140,150];
+var yArray = [7,8,8,9,9,9,10,11,14,14,15];
+// Define Data
+var data = [{
+  x: xArray,
+  y: yArray,
+  mode:"markers",
+  type:"scatter",
+}];
+
+// Define Layout
+var layout = {
+  xaxis: {range: [40, 160], title: "Square Meters"},
+  yaxis: {range: [5, 16], title: "Price in Millions"},
+  title: "House Prices vs. Size"
+};
+
+Plotly.newPlot("myDiv", data, layout);
+
+
+// on chang change filter!!
+document.getElementById('choice').onchange = function() {
+    console.log(this.value);
+    let gt = this.value
+    
+
+// get array from text file or flask front end 
+var xArray = [50,60,70,80,90,100,110,120,130,140,150];
+var yArray = [7,8,8,9,9,9,10,11,14,14,15];
+
+// Make function take takes value and fiters greater than value on filter returns x array with values greater than that
+function filtergreatherthan_xaxis(dropdownvalue) {   // The function returns the product of p1 and p2
+    let xlistz = []
+    let ylistz = []
+    for(let i = 0; i < yArray.length;i++){
+        console.log("yvalue is", yArray[i])
+        console.log("xvalue is", xArray[i])
+        if(yArray[i] > dropdownvalue){
+            ylistz.push(yArray[i]);
+            xlistz.push(xArray[i]);
+
+        }else{
+            continue; 
+        }
+    }
+    return xlistz;   // The function returns the product of p1 and p2
+}
+
+// y axis eqivalent of x axis function
+function filtergreatherthan_yaxis(dropdownvalue) {   // The function returns the product of p1 and p2
+    let xlistz = []
+    let ylistz = []
+    for(let i = 0; i < yArray.length;i++){
+        console.log("yvalue is", yArray[i])
+        console.log("xvalue is", xArray[i])
+        if(yArray[i] > dropdownvalue){
+            ylistz.push(yArray[i]);
+            xlistz.push(xArray[i]);
+
+        }else{
+            continue; 
+        }
+    }
+    return ylistz;   // The function returns the product of p1 and p2
+}
+
+var xaxisvals = filtergreatherthan_xaxis(gt)
+console.log(xaxisvals)
+
+var yaxisvals = filtergreatherthan_yaxis(gt)
+console.log(yaxisvals)
+
+// Define Data
+var data = [{
+  x: xaxisvals,
+  y: yaxisvals,
+  mode:"markers",
+  type:"scatter",
+}];
+
+// Define Layout
+var layout = {
+  xaxis: {range: [40, 160], title: "Square Meters"},
+  yaxis: {range: [5, 16], title: "Price in Millions"},
+  title: "House Prices vs. Size"
+};
+
+Plotly.newPlot("myDiv", data, layout);
+}
+        </script>
+      </body>
+</html>
+
+
